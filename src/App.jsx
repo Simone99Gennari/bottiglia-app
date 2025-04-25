@@ -13,28 +13,25 @@ function App() {
     <ClerkProvider publishableKey={publishableKey}>
       <Router>
         <Routes>
-          {/* Home */}
+          {/* Home pubblica */}
           <Route path="/" element={<Home />} />
 
-          {/* QR Page - protetta (solo loggati) */}
+          {/* QR Page - protetta con redirect */}
           <Route
             path="/qr"
             element={
-              <SignedIn>
-                <QrGenerator />
-              </SignedIn>
-            }
-          />
-          <Route
-            path="/qr"
-            element={
-              <SignedOut>
-                <RedirectToSignIn />
-              </SignedOut>
+              <>
+                <SignedIn>
+                  <QrGenerator />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
             }
           />
 
-          {/* Clerk auth routes */}
+          {/* Clerk routes */}
           <Route path="/sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
           <Route path="/sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
           <Route path="/user-profile/*" element={<UserProfile routing="path" path="/user-profile" />} />
